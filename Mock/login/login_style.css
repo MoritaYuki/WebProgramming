@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+.login_menu{
+	text-align: center;
+}
+
+.title{
+	margin: 50px 0px 75px 0px;
+	font-weight: bold;
+}
+
+.input{
+	padding: 15px;
+	font-weight: bold;
+}
+
+.login{
+	margin-top: 55px;
+}

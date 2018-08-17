@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+body{
+	width: 1200px;
+	margin: auto;
+}
+
+.header{
+	width: 100%;
+	background-color: gray;
+	float: right;
+	padding-right: 60px;
+}
+
+.user_name{
+	float: right;
+	color: white;
+	padding-top: 10px;
+	margin-right: 100px;
+}
+
+.logout{
+	color: red;
+	float: right;
+	padding-top: 10px;
+	text-decoration: underline;
+}
+
+.title{
+	text-align: center;
+	padding-top: 80px;
+}
+
+.new_account{
+	width: 100%;
+	display: inline-block;
+	text-align: right;
+	padding: 30px;
+	text-decoration: underline;
+}
+
+.user_list{
+	border-bottom: 2px solid;
+	padding-bottom: 40px;
+	margin-bottom: 40px;
+}
+
+.txarea{
+	width: 80%;
+}
+
+.birth, form-control{
+	display: inline;
+	width: 48.4%;
+}
+
+.search{
+	float: right;
+	width: 150px;
+}
+
+.clear{
+	clear: both;
+}
+
+.btn{
+	margin-right: 30px;
+	width: 120px;
+}
+
+.btn-box{
+	width: 500px;
+}
+
+
+
+
+
+
