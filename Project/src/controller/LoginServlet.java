@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.UserDao;
+import model.User;
 
 /**
  * Servlet implementation class LoginServlet
@@ -31,8 +32,14 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//未実装：ログインセッションがある場合はユーザ一覧に遷移する。
 
+		//ログインセッションがある場合、ユーザ一覧画面にリダイレクトさせる。
+		HttpSession session = request.getSession();
+		User u = (User)session.getAttribute("userInfo");
+		if(!(u == null)) {
+			response.sendRedirect("UserListServlet");
+			return;
+		}
 
 		//login.jspにフォワード
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
@@ -45,6 +52,10 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// リクエストパラメータの文字コードを指定
         request.setCharacterEncoding("UTF-8");
+
+		// リクエストパラメータの入力項目を取得
+		String loginId = request.getParameter("loginId");
+		String password = request.getParameter("password");
 
         //UserDaoに引数を渡して、DB(webpro)上に合致するものがあるかどうかを評価
         UserDao userDao = new UserDao();
@@ -63,7 +74,7 @@ public class LoginServlet extends HttpServlet {
 
         //合致するものがあった場合はユーザの情報をセッションスコープに保管して
         //ユーザ一覧へ遷移
-        HttpSession session = request.getSession();        
+        HttpSession session = request.getSession();
         session.setAttribute("userInfo", user);
 
         response.sendRedirect("UserListServlet");

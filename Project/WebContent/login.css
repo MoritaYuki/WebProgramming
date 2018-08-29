@@ -16,6 +16,10 @@ header h3{
 	text-align: center;
 }
 
+.error{
+	color: red;
+}
+
 .title{
 	margin: 50px 0px 75px 0px;
 	font-weight: bold;

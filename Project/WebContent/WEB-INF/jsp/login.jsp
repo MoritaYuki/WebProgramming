@@ -16,19 +16,20 @@
 			<h3>ユーザ管理システム</h3>
 		</header>
 		<h1 class="title"> ログイン画面 </h1>
+		<div class="error">
+			<c:if test="${errorMessage != null}" >
+				${errorMessage}
+			</c:if>
+		</div>
 
-		<c:if test="${errMsg != null}" >
-			${errorMessage}
-		</c:if>
-
-		<form class="form" method="get" action="">
+		<form class="form" method="post" action="LoginServlet">
 			<div class="input">
 				<a>ログインID　　</a>
-				<input type="text"><br>
+				<input type="text" name="loginId"><br>
 			</div>
 			<div class="input">
 				<a>パスワード　　</a>
-				<input class="pass" type="password"><br>
+				<input class="pass" type="password" name="password"><br>
 			</div>
 
 			<input class="login" type="submit" value="ログイン">

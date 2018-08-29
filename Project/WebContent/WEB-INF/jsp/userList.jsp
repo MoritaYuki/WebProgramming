@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="model.User" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,13 +13,13 @@
 <body>
 	<div class="header">
 		<a class="title-frase">ユーザ管理システム</a>
-		<a class="logout" href="#">ログアウト</a>
-		<p class="user_name">ユーザ名　さん</p>
+		<a class="logout" href="LogoutServlet">ログアウト</a>
+		<p class="user_name">${userInfo.name}　さん</p>
 	</div>
 	<div class="user_list">
 		<h1 class="title"> ユーザ一覧 </h1>
 		<a class="new_account" href="#">新規登録</a>
-		<form class="form" method="get" action="">
+		<form class="form" method="post" action="">
 			<div class="txarea">
 				<div class="form-group row">
 				   <label for="inputPassword" class="col-sm-2 col-form-label">ログインID</label>
@@ -53,38 +57,41 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	    <tr>
-	      <th scope="row">id0001</th>
-	      <td>田中太郎</td>
-	      <td>1989年04月26日</td>
-	      <td class="btn-box">
-	      	<button type="button" class="btn btn-primary">詳細</button>
-	      	<button type="button" class="btn btn-success">更新</button>
-	      	<button type="button" class="btn btn-warning">削除</button>
-	      </td>
-	    </tr>
-	    <tr>
-	      <th scope="row">id0002</th>
-	      <td>佐藤二朗</td>
-	      <td>2001年01月01日</td>
-	      <td class="btn-box">
-	      	<button type="button" class="btn btn-primary">詳細</button>
-	      	<button type="button" class="btn btn-success">更新</button>
-	      	<button type="button" class="btn btn-warning">削除</button>
-	      </td>
-	    </tr>
-	    <tr>
-	      <th scope="row">id0003</th>
-	      <td>佐川真司</td>
-	      <td>2000年01月01日</td>
-	      <td class="btn-box">
-	      	<button type="button" class="btn btn-primary">詳細</button>
-	      	<button type="button" class="btn btn-success">更新</button>
-	      	<button type="button" class="btn btn-warning">削除</button>
-	      </td>
-	    </tr>
+
+	  	<%-- 管理者ログイン時は全てのボタンを表示 --%>
+	  	<c:if test="${userInfo.loginId == 'admin'}">
+		  <c:forEach var="user" items="${userList}">
+			    <tr>
+			      <th scope="row">${user.loginId}</th>
+			      <td>${user.name}</td>
+			      <td>${user.birthDate}</td>
+			      <td class="btn-box">
+				  	<button type="button" class="btn btn-primary" href="UserDetailServlet?id=${user.id}">詳細</button>
+					<button type="button" class="btn btn-success" href="#">更新</button>
+				    <button type="button" class="btn btn-warning" href="#">削除</button>
+				  </td>
+			    </tr>
+		   </c:forEach>
+		</c:if>
+
+		<%-- 通常ユーザの場合は詳細のみ全て表示し、更新と削除は自分の分のみ表示 --%>
+		<c:if test="${userInfo.loginId != 'admin'}">
+		  <c:forEach var="user" items="${userList}">
+			    <tr>
+			      <th scope="row">${user.loginId}</th>
+			      <td>${user.name}</td>
+			      <td>${user.birthDate}</td>
+			      <td class="btn-box">
+				  	<button type="button" class="btn btn-primary" href="#">詳細</button>
+				  	<c:if test="${user.loginId == userInfo.loginId}">
+						<button type="button" class="btn btn-success" href="#">更新</button>
+				  	</c:if>
+			      </td>
+			    </tr>
+		   </c:forEach>
+		</c:if>
+
 	  </tbody>
 	</table>
-
 </body>
 </html>
