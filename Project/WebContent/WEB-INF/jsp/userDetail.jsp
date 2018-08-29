@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +10,7 @@
 </head>
 <body>
 	<div class="header">
+		<a class="title-frase">ユーザ管理システム</a>
 		<a class="logout" href="LogoutServlet">ログアウト</a>
 		<p class="user_name">${userInfo.name}　さん</p>
 	</div>

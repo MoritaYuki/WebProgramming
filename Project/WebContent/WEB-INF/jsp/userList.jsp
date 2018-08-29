@@ -66,9 +66,9 @@
 			      <td>${user.name}</td>
 			      <td>${user.birthDate}</td>
 			      <td class="btn-box">
-				  	<button type="button" class="btn btn-primary" href="UserDetailServlet?id=${user.id}">詳細</button>
-					<button type="button" class="btn btn-success" href="#">更新</button>
-				    <button type="button" class="btn btn-warning" href="#">削除</button>
+				  	<a type="button" class="btn btn-primary" href="UserDetailServlet?id=${user.id}">詳細</a>
+					<a type="button" class="btn btn-success" href="#">更新</a>
+				    <a type="button" class="btn btn-warning" href="#">削除</a>
 				  </td>
 			    </tr>
 		   </c:forEach>
