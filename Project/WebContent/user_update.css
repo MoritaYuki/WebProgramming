@@ -1,0 +1,86 @@
+@charset "UTF-8";
+
+.title-frase {
+	display: inline-block;
+	padding: 5px 0px 0px 70px;
+	font-size: 25px;
+}
+
+body{
+	width: 900px;
+	margin: auto;
+}
+
+.header{
+	width: 100%;
+	background-color: gray;
+	float: right;
+	padding-right: 60px;
+}
+
+.error{
+	color: red;
+	text-align: center;
+}
+
+.user_name{
+	float: right;
+	color: white;
+	padding-top: 10px;
+	margin-right: 100px;
+}
+
+.logout{
+	color: red;
+	float: right;
+	padding-top: 10px;
+	text-decoration: underline;
+}
+
+.title{
+	text-align: center;
+	padding: 80px 0px 50px 0px;
+}
+
+.back{
+	width: 100%;
+	display: inline-block;
+	padding-left: 30px;
+	text-decoration: underline;
+}
+
+.txarea{
+	width: 85%;
+	margin: auto;
+}
+
+.form-control{
+	margin-left: auto;
+	width: 450px;
+}
+
+.form-group.row{
+	padding-top: 20px;
+}
+
+.col-sm-2,.col-sm-4{
+	font-weight: bold;
+}
+
+.search{
+	display: block;
+	margin: 65px auto 30px auto;
+	width: 150px;
+}
+
+.id{
+	padding-left: 300px;
+	height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 20px;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+}
+

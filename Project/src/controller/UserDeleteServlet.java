@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,16 +14,16 @@ import dao.UserDao;
 import model.User;
 
 /**
- * Servlet implementation class UserDetailServlet
+ * Servlet implementation class UserDeletservlete
  */
-@WebServlet("/UserDetailServlet")
-public class UserDetailServlet extends HttpServlet {
+@WebServlet("/UserDeleteServlet")
+public class UserDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserDetailServlet() {
+    public UserDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,19 +44,29 @@ public class UserDetailServlet extends HttpServlet {
 		// リクエストパラメータの文字コードを指定
         request.setCharacterEncoding("UTF-8");
 
-		// URLからユーザIDを取得
-		String id = request.getParameter("id");
+		// ユーザ情報削除を確認後の処理
+		// リクエストスコープの"delFg"に値がある場合のみユーザ情報を削除する
+		if(request.getParameter("delFg") != null) {
+			String loginId = request.getParameter("loginId");
+			System.out.println(loginId);
 
-		// ユーザリストを取得し、取得したidと合致するユーザ情報をリクエストスコープに取得する
-		List<User> userList = new UserDao().findAll();
-		for(User user: userList) {
-			if(user.getId() == Integer.parseInt(id)) {
-				request.setAttribute("getUserInfo", user);
-			}
+			// ユーザ情報を削除して、削除したレコード数をリクエストスコープに保存
+			int deleteNum = new UserDao().userDelete(loginId);
+			// 確認用
+			System.out.println(deleteNum);
+
+			// ユーザ一覧画面へ遷移
+			response.sendRedirect("UserListServlet");
+			return;
 		}
 
-		// userDetail.jspにフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userDetail.jsp");
+		// URL上の"id"をリクエストスコープに取得
+		String loginId = request.getParameter("loginId");
+		request.setAttribute("loginId", loginId);
+
+		// userDelete.jspにフォワード
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userDelete.jsp");
         dispatcher.forward(request, response);
 	}
 }
+

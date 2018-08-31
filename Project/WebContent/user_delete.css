@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+.title-frase {
+	display: inline-block;
+	padding: 5px 0px 0px 70px;
+	font-size: 25px;
+}
+
+body{
+	width: 900px;
+	margin: auto;
+}
+
+.header{
+	width: 100%;
+	background-color: gray;
+	float: right;
+	padding-right: 60px;
+}
+
+.user_name{
+	float: right;
+	color: white;
+	padding-top: 10px;
+	margin-right: 100px;
+}
+
+.logout{
+	color: red;
+	float: right;
+	padding-top: 10px;
+	text-decoration: underline;
+}
+
+.title{
+	text-align: center;
+	padding: 80px 0px 50px 0px;
+}
+
+.del-message{
+	padding-left: 20px;
+}
+
+.search{
+	margin-top: 100px;
+	width: 150px;
+}
+
+.subm{
+	text-align: center;
+}
+
+.ok{
+	margin-left: 100px;
+}
+

@@ -18,7 +18,9 @@
 	</div>
 	<div class="user_list">
 		<h1 class="title"> ユーザ一覧 </h1>
-		<a class="new_account" href="#">新規登録</a>
+		<c:if test="${userInfo.loginId == 'admin'}">
+			<a class="new_account" href="SignUpServlet">新規登録</a>
+		</c:if>
 		<form class="form" method="post" action="">
 			<div class="txarea">
 				<div class="form-group row">
@@ -67,8 +69,8 @@
 			      <td>${user.birthDate}</td>
 			      <td class="btn-box">
 				  	<a type="button" class="btn btn-primary" href="UserDetailServlet?id=${user.id}">詳細</a>
-					<a type="button" class="btn btn-success" href="#">更新</a>
-				    <a type="button" class="btn btn-warning" href="#">削除</a>
+					<a type="button" class="btn btn-success" href="UserUpdateServlet?loginId=${user.loginId}">更新</a>
+				    <a type="button" class="btn btn-warning" href="UserDeleteServlet?loginId=${user.loginId}">削除</a>
 				  </td>
 			    </tr>
 		   </c:forEach>
@@ -82,9 +84,9 @@
 			      <td>${user.name}</td>
 			      <td>${user.birthDate}</td>
 			      <td class="btn-box">
-				  	<button type="button" class="btn btn-primary" href="#">詳細</button>
+				  	<a type="button" class="btn btn-primary" href="UserDetailServlet?id=${user.id}">詳細</a>
 				  	<c:if test="${user.loginId == userInfo.loginId}">
-						<button type="button" class="btn btn-success" href="#">更新</button>
+						<a type="button" class="btn btn-success" href="UserUpdateServlet?loginId=${user.loginId}">更新</a>
 				  	</c:if>
 			      </td>
 			    </tr>

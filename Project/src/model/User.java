@@ -27,6 +27,15 @@ public class User implements Serializable{
 		this.name = name;
 	}
 
+	public User(int id, String loginId, String name, Date birthDate, String password) {
+		super();
+		this.id = id;
+		this.loginId = loginId;
+		this.name = name;
+		this.password = password;
+		this.birthDate = birthDate;
+	}
+
 	//ユーザ一覧表示用のユーザデータ取得に使用するコンストラクタ
 	public User(int id, String loginId, String name, Date birthDate, String password, String createDate,
 			String updateDate) {
