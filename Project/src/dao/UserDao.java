@@ -128,6 +128,87 @@ public class UserDao {
 		return userList;
 	}
 
+	public List<User> search(String userLoginId, String userName, String startBirthday, String endBirthday){
+
+		// コネクションを取得
+		Connection conn = null;
+
+		//ユーザ情報保管用のリストを準備
+		List<User> userList = new ArrayList<User>();
+
+		try {
+			//DBに接続
+			conn = DBManager.getConnection();
+			//SELECT文準備
+			String where;
+
+			// ログインIDが空欄なら、ログインIDの抽出文を消す。（完全一致の場合はワイルドカードがないため）
+			if(!strCheck(userLoginId)) {
+				where = "(name LIKE BINARY ?) AND (birth_date BETWEEN ? AND ?) AND (login_id = BINARY ?) AND (id != 1)";
+			} else {
+				where = "(name LIKE BINARY ?) AND (birth_date BETWEEN ? AND ?) AND (id != 1)";
+			}
+
+			String sql = "SELECT * FROM user WHERE" + where;
+
+			//ステートメントの準備
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			//それぞれの入力項目を代入(フォームが空欄の場合はワイルドカードを代入)
+
+	        if(strCheck(userName)) {
+	        	stmt.setString(1, "%");
+	        }else {
+	        	stmt.setString(1, "%" + userName + "%");
+	        }
+
+	        if(strCheck(startBirthday)) {
+	        	stmt.setString(2, "0000/00/00");
+	        }else {
+	        	stmt.setString(2, startBirthday);
+	        }
+
+	        if(strCheck(endBirthday)) {
+	        	stmt.setString(3, "9999-12-31");
+	        }else {
+	        	stmt.setString(3, endBirthday);
+	        }
+
+	        if(!strCheck(userLoginId)) {
+	        	stmt.setString(4, userLoginId);
+	        }
+
+	        ResultSet rs = stmt.executeQuery();
+
+	      //取得したユーザデータの表から１レコードずつ値を取得して、リストに代入していく
+			while (rs.next()) {
+                int id = rs.getInt("id");
+                String loginId = rs.getString("login_id");
+                String name = rs.getString("name");
+                Date birthDate = rs.getDate("birth_date");
+                String password = rs.getString("password");
+                String createDate = rs.getString("create_date");
+                String updateDate = rs.getString("update_date");
+                User user = new User(id, loginId, name, birthDate, password, createDate, updateDate);
+
+                userList.add(user);
+            }
+		}catch(SQLException e){
+			e.printStackTrace();
+			return null;
+		}finally {
+			// データベース切断
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+	                return null;
+	            }
+			}
+		}
+		return userList;
+	}
+
 	// フォームからの情報を新規ユーザとして登録
 	public int signUp(String loginId, String name, String birthday, String password) {
 		//コネクション取得

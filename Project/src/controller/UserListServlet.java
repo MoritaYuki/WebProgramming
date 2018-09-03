@@ -51,4 +51,31 @@ public class UserListServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
 		dispatcher.forward(request, response);
 	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 全体で使用するインスタンスの生成
+		UserDao userDao = new UserDao();
+
+		// リクエストパラメータの文字コードを指定
+        request.setCharacterEncoding("UTF-8");
+
+		// リクエストパラメータの入力項目を取得
+		String loginId = request.getParameter("inputId");
+		String userName = request.getParameter("inputUserName");
+		String startBirthday = request.getParameter("inputStartBirthday");
+		String endBirthday = request.getParameter("inputEndBirthday");
+
+		// 入力情報を元に該当ユーザを検索
+		List<User> userList = userDao.search(loginId, userName, startBirthday, endBirthday);
+
+		// リクエストスコープにユーザ一覧情報をセット
+		request.setAttribute("userList", userList);
+
+		// ユーザ一覧のjspにフォワード
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
+		dispatcher.forward(request, response);
+	}
 }

@@ -21,26 +21,26 @@
 		<c:if test="${userInfo.loginId == 'admin'}">
 			<a class="new_account" href="SignUpServlet">新規登録</a>
 		</c:if>
-		<form class="form" method="post" action="">
+		<form class="form" method="post" action="UserListServlet">
 			<div class="txarea">
 				<div class="form-group row">
-				   <label for="inputPassword" class="col-sm-2 col-form-label">ログインID</label>
+				   <label for="inputId" class="col-sm-2 col-form-label">ログインID</label>
 				   <div class="col-sm-10">
-					   <input type="password" class="form-control" id="inputPassword">
+					   <input type="text" class="form-control" name="inputId" id="inputId">
 				   </div>
 				</div>
 				<div class="form-group row">
-				   <label for="inputPassword" class="col-sm-2 col-form-label">ユーザ名</label>
+				   <label for="inputUserName" class="col-sm-2 col-form-label">ユーザ名</label>
 				   <div class="col-sm-10">
-					   <input type="password" class="form-control" id="inputPassword">
+					   <input type="text" class="form-control" name="inputUserName" id="inputUserName">
 				   </div>
 				</div>
 				<div class="form-group row">
-				   <label for="inputPassword" class="col-sm-2 col-form-label">生年月日</label>
+				   <label for="inputBirthday" class="col-sm-2 col-form-label">生年月日</label>
 				   <div class="col-sm-10">
-					   <input type="password" class="form-control birth" id="inputPassword" placeholder="年/月/日">
+					   <input type="text" class="form-control"  name="inputStartBirthday" id="inputBirthday" placeholder="年/月/日">
 					   <a class="symbol">～</a>
-					   <input type="password" class="form-control birth" id="inputPassword" placeholder="年/月/日">
+					   <input type="text" class="form-control"  name="inputEndBirthday" id="inputBirthday" placeholder="年/月/日">
 				   </div>
 				</div>
 			</div>
@@ -92,7 +92,6 @@
 			    </tr>
 		   </c:forEach>
 		</c:if>
-
 	  </tbody>
 	</table>
 </body>
