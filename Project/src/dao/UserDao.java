@@ -268,20 +268,22 @@ public class UserDao {
 	}
 
 	// 更新フォームからの情報を用いて、レコードを更新
-	public int userUpdate(String loginId, String userName, String birthday, String password) {
+	public int userUpdate(String loginId, String userName, String birthday, String password, int passFg) {
 		// コネクション取得
 		Connection conn = null;
 
-		// ハッシュ生成前にバイト配列へ置き換える際のCharset
-		Charset charset = StandardCharsets.UTF_8;
-
-		// ハッシュ生成アルゴリズム
-		String algorithm = "MD5";
-
 		try {
-			//ハッシュ生成処理
-			byte[] bytes = MessageDigest.getInstance(algorithm).digest(password.getBytes(charset));
-			String encPassword = DatatypeConverter.printHexBinary(bytes);
+			if(!(passFg == 1)) {
+				// ハッシュ生成前にバイト配列へ置き換える際のCharset
+				Charset charset = StandardCharsets.UTF_8;
+
+				// ハッシュ生成アルゴリズム
+				String algorithm = "MD5";
+
+				//ハッシュ生成処理
+				byte[] bytes = MessageDigest.getInstance(algorithm).digest(password.getBytes(charset));
+				password = DatatypeConverter.printHexBinary(bytes);
+			}
 
 			//DBに接続
 			conn = DBManager.getConnection();
@@ -302,7 +304,7 @@ public class UserDao {
 			//それぞれの入力項目を代入
 			stmt.setString(1, userName);
 			stmt.setString(2, birthday);
-			stmt.setString(3, encPassword);
+			stmt.setString(3, password);
 			stmt.setString(4, loginId);
 
 			// 更新したレコードの数を返す

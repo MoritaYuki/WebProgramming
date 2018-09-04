@@ -102,12 +102,16 @@ public class UserUpdateServlet extends HttpServlet {
 		}
 
 		// 更新フォームにパスワードが入力されなかった際は、更新前のパスワードを代入
+		// 再度、userUpdateメソッドで暗号しないようにFgを設定
+		int passFg = 0;
+
 		if(userDao.strCheck(password)) {
 			password = (String) session.getAttribute("password");
+			passFg = 1;
 		}
 
         // updateメソッドを使って、DB上に入力された情報を更新
-        int updateNum = userDao.userUpdate(loginId, userName, birthday, password);
+        int updateNum = userDao.userUpdate(loginId, userName, birthday, password, passFg);
         // 確認用
         System.out.println(updateNum);
 
