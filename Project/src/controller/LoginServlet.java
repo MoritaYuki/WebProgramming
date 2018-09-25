@@ -57,9 +57,8 @@ public class LoginServlet extends HttpServlet {
 		String loginId = request.getParameter("loginId");
 		String password = request.getParameter("password");
 
-        //UserDaoに引数を渡して、DB(webpro)上に合致するものがあるかどうかを評価
-        UserDao userDao = new UserDao();
-        User user = userDao.findByLoginInfo(loginId, password);
+        //UserDaoに引数を渡して、DB(sm_db)上に合致するものがあるかどうかを評価
+        User user = new UserDao().findByLoginInfo(loginId, password);
 
         //合致するものがなかった場合
         if(user == null) { //←.equals()は使わない。userがnullの場合はnullインスタンスのメソッドを使用してぬるぽが起こるため
@@ -74,9 +73,7 @@ public class LoginServlet extends HttpServlet {
 
         //合致するものがあった場合はユーザの情報をセッションスコープに保管して
         //ユーザ一覧へ遷移
-        HttpSession session = request.getSession();
-        session.setAttribute("userInfo", user);
-
+        request.getSession().setAttribute("userInfo", user);
         response.sendRedirect("UserListServlet");
 	}
 

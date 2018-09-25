@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.UserDao;
 import model.User;
@@ -32,10 +31,10 @@ public class UserListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		// ログインセッションがない場合、ログイン画面にリダイレクトさせる
-		HttpSession session = request.getSession();
-		User u = (User)session.getAttribute("userInfo");
-		if(u == null) {
+		User user = (User)request.getSession().getAttribute("userInfo");
+		if(user == null) {
 			response.sendRedirect("LoginServlet");
 			return;
 		}
@@ -48,8 +47,7 @@ public class UserListServlet extends HttpServlet {
 		request.setAttribute("userList", userList);
 
 		// ユーザ一覧のjspにフォワード
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp");
-		dispatcher.forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/userList.jsp").forward(request, response);
 	}
 
 	/**
